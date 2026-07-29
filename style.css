@@ -10,7 +10,6 @@
   --electric-soft:#EAF0FE;
   --pulse:#CF5933;
   --success:#16A34A;
-  --warning:#F59E0B;
   --dark:#0F172A;
   --serif:'Noto Serif Georgian', serif;
   --sans:'Noto Sans Georgian', sans-serif;
@@ -36,6 +35,16 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(247,248,252,
 .nav-links{display:flex;gap:26px;align-items:center}
 .nav-links a{font-size:13.5px;font-weight:500;color:var(--ink-2);transition:color .15s}
 .nav-links a:hover{color:var(--korda)}
+.nav-toggle{display:none;flex-direction:column;justify-content:center;gap:5px;width:34px;height:34px;background:none;border:none;padding:0;cursor:pointer}
+.nav-toggle span{display:block;width:100%;height:2px;background:var(--korda);border-radius:2px;transition:transform .2s ease, opacity .2s ease}
+.nav-toggle[aria-expanded="true"] span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.nav-toggle[aria-expanded="true"] span:nth-child(2){opacity:0}
+.nav-toggle[aria-expanded="true"] span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+@media(max-width:760px){
+  .nav-toggle{display:flex}
+  .nav-links{position:absolute;top:100%;left:0;right:0;flex-direction:column;align-items:flex-start;gap:18px;background:var(--paper);border-bottom:1px solid var(--line);padding:22px 24px;display:none}
+  .nav-links.open{display:flex}
+}
 
 /* ---------- Buttons: ONE consistent system ---------- */
 .btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--sans);font-weight:600;font-size:14px;border-radius:10px;padding:11px 22px;cursor:pointer;transition:transform .15s, box-shadow .15s, background .15s, color .15s;line-height:1.2}
@@ -47,26 +56,15 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(247,248,252,
 .btn-ondark{background:#fff;color:var(--korda);border:1.5px solid #fff}
 .btn-ondark:hover{background:transparent;color:#fff;transform:translateY(-1px)}
 .btn-small{padding:9px 16px;font-size:13px}
-@media(max-width:760px){.nav-links a:not(.btn){display:none}}
 
 /* ---------- Hero ---------- */
 .hero{padding:150px 0 40px;overflow:hidden}
 .hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center}
 @media(max-width:920px){.hero-grid{grid-template-columns:1fr}}
-.eyebrow{font-family:var(--latin);font-size:11.5px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--electric);display:flex;align-items:center;gap:10px;margin-bottom:22px}
-.eyebrow::before{content:"";width:28px;height:2px;background:var(--pulse);display:inline-block}
 h1{font-family:var(--serif);font-weight:700;font-size:clamp(34px,4.6vw,54px);line-height:1.18;letter-spacing:-.01em;margin-bottom:22px}
 h1 em{font-style:normal;color:var(--electric)}
 .hero-sub{font-size:17px;color:var(--ink-2);max-width:520px;margin-bottom:32px}
 .hero-ctas{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:28px}
-.hero-note{font-size:13px;color:var(--ink-3);display:flex;align-items:center;gap:8px}
-.hero-note .live{width:8px;height:8px;border-radius:50%;background:var(--pulse);animation:beat 1.4s infinite}
-@keyframes beat{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.5);opacity:.5}}
-
-.hero-chord{position:absolute;left:0;right:0;bottom:0;pointer-events:none}
-.hero-chord path{fill:none;stroke:var(--korda);stroke-width:1.5;opacity:.25;stroke-dasharray:2000;stroke-dashoffset:2000;animation:draw 2.6s ease forwards .3s}
-.hero-chord .blip{stroke:var(--pulse);opacity:.9}
-@keyframes draw{to{stroke-dashoffset:0}}
 
 /* ---------- Phone mockup ---------- */
 .phone{width:290px;background:#fff;border-radius:36px;border:1px solid var(--line);box-shadow:0 30px 70px rgba(12,27,58,.16), 0 2px 0 rgba(255,255,255,.6) inset;overflow:hidden;margin:0 auto;transform:rotate(2deg)}
@@ -77,9 +75,7 @@ h1 em{font-style:normal;color:var(--electric)}
 .ph-apt{font-size:11px;opacity:.75}
 .phone-body{padding:14px}
 .ph-cta{background:linear-gradient(135deg,var(--electric),var(--korda));border-radius:14px;padding:14px;color:#fff;margin-bottom:12px}
-.ph-cta-label{font-size:9px;letter-spacing:.1em;text-transform:uppercase;opacity:.8;font-weight:700}
 .ph-cta-title{font-size:15px;font-weight:700}
-.ph-cta-sub{font-size:10.5px;opacity:.75}
 .ph-cats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px}
 .ph-cat{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:8px 4px;text-align:center}
 .ph-cat span{display:block;font-size:15px}
@@ -101,15 +97,6 @@ h1 em{font-style:normal;color:var(--electric)}
 
 h2{font-family:var(--serif);font-weight:700;font-size:clamp(26px,3.2vw,38px);line-height:1.25;margin-bottom:14px}
 .sec-sub{font-size:16px;color:var(--ink-2)}
-
-/* ---------- Problem ---------- */
-.problem{padding:70px 0}
-.prob-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-@media(max-width:860px){.prob-grid{grid-template-columns:1fr}}
-.prob-card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:28px}
-.prob-icon{font-size:26px;margin-bottom:14px;display:block}
-.prob-title{font-weight:700;font-size:16.5px;margin-bottom:8px}
-.prob-text{font-size:14px;color:var(--ink-2)}
 
 /* ---------- How it works ---------- */
 .how{padding:80px 0}
@@ -169,7 +156,6 @@ h3{font-family:var(--serif);font-weight:700;font-size:clamp(23px,2.6vw,30px);lin
 .smart-card .ic{font-size:21px;display:block;margin-bottom:12px}
 .smart-card b{display:block;font-size:14.5px;margin-bottom:5px}
 .smart-card p{font-size:13px;color:var(--ink-2)}
-.smart-card .soon{display:inline-block;font-family:var(--latin);font-size:9px;font-weight:700;letter-spacing:.08em;color:#92400E;background:#FEF3C7;border-radius:99px;padding:2px 8px;margin-left:6px;vertical-align:2px}
 
 /* ---------- Roadmap ---------- */
 .road{padding:80px 0}
@@ -213,14 +199,11 @@ h3{font-family:var(--serif);font-weight:700;font-size:clamp(23px,2.6vw,30px);lin
 footer{border-top:1px solid var(--line);padding:34px 0;font-size:13px;color:var(--ink-3)}
 .foot-inner{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
 .foot-geo{display:flex;align-items:center;gap:7px}
-.foot-brand{font-size:15px}
 
-/* ---------- Reveal ---------- */
-.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease, transform .7s ease}
-.reveal.in{opacity:1;transform:none}
+/* ---------- Reveal (only hidden once JS confirms it can reveal them) ---------- */
+.js .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease, transform .7s ease}
+.js .reveal.in{opacity:1;transform:none}
 @media(prefers-reduced-motion:reduce){
-  .reveal{opacity:1;transform:none;transition:none}
-  .hero-chord path{animation:none;stroke-dashoffset:0}
-  .hero-note .live{animation:none}
+  .js .reveal{opacity:1;transform:none;transition:none}
   html{scroll-behavior:auto}
 }
