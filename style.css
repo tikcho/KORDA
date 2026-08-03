@@ -195,7 +195,6 @@ h3{font-family:var(--serif);font-weight:700;font-size:clamp(23px,2.6vw,30px);lin
 .feedback{padding:90px 0 100px}
 .fb-card{background:var(--korda);border-radius:24px;padding:64px 56px;color:#fff;position:relative;overflow:hidden}
 @media(max-width:760px){.fb-card{padding:40px 28px}}
-.fb-card::after{content:"";position:absolute;right:-80px;top:-80px;width:300px;height:300px;border-radius:50%;background:rgba(255,255,255,.05)}
 .fb-card h2{color:#fff;max-width:560px}
 .fb-card .sec-sub{color:rgba(255,255,255,.75);max-width:540px;margin-bottom:30px}
 .fb-qs{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:34px}
